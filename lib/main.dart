@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:gradelander/pages/grades.dart';
+import 'package:gradelander/pages/home.dart';
+import "package:gradelander/pages/page.dart";
+import 'package:gradelander/pages/settings.dart';
 import 'package:gradelander/widgets/navigation.dart';
 
 void main() {
@@ -22,6 +25,24 @@ class _MainAppState extends State<MainApp> {
     });
   }
 
+  late Map<int, BasicPage> pages;
+
+  @override
+  void initState() {
+    super.initState();
+    pages = {
+      0: HomePage(
+          selectedPage: currentSelectedPage,
+          switchSiteCallback: siteSwitchIndexCallback),
+      1: GradesPage(
+          selectedPage: currentSelectedPage,
+          switchSiteCallback: siteSwitchIndexCallback),
+      2: SettingsPage(
+          selectedPage: currentSelectedPage,
+          switchSiteCallback: siteSwitchIndexCallback)
+    };
+  }
+
   @override
   Widget build(BuildContext context) {
     var mqSize = MediaQuery.of(context).size;
@@ -33,27 +54,8 @@ class _MainAppState extends State<MainApp> {
                 switchSiteCallback: siteSwitchIndexCallback,
               )
             : null,
-        body: Center(child: () {
-          if (mqSize.width >= 1000.toDouble()) {
-            return Row(
-              children: [
-                NavRail(
-                  selectedPage: currentSelectedPage,
-                  switchSiteCallback: siteSwitchIndexCallback,
-                ),
-                const VerticalDivider(
-                  width: 1,
-                  thickness: 1,
-                ),
-                const Text("Horizontal Layout")
-              ],
-            );
-          } else {
-            return Column(
-              children: [Text("Vertical Layout")],
-            );
-          }
-        }()),
+        body: Center(
+            child: pages[currentSelectedPage]),
       ),
     );
   }

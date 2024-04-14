@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:gradelander/pages/page.dart';
 
 import '../widgets/navigation.dart';
 
-class GradesPage extends BasicPage {
-  GradesPage({required super.switchSiteCallback, required super.selectedPage});
+class BasicPage extends StatefulWidget {
+  Function(int) switchSiteCallback;
+  int selectedPage;
+
+  BasicPage({super.key, required this.switchSiteCallback, required this.selectedPage});
 
   @override
-  State<GradesPage> createState() => GradesPageState();
+  State<BasicPage> createState() => PageState();
 }
 
-class GradesPageState extends State<GradesPage> {
+class PageState extends State<BasicPage> {
+
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
@@ -30,8 +33,7 @@ class GradesPageState extends State<GradesPage> {
         ],
       );
     } else {
-      return const Text("Gradespage");
+      return const Column(children: [Text("Horizontal Layout")]);
     }
   }
-
 }
