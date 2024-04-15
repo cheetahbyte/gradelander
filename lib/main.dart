@@ -25,37 +25,43 @@ class _MainAppState extends State<MainApp> {
     });
   }
 
-  late Map<int, BasicPage> pages;
+  late List<Widget> pages;
 
   @override
   void initState() {
     super.initState();
-    pages = {
-      0: HomePage(
-          selectedPage: currentSelectedPage,
-          switchSiteCallback: siteSwitchIndexCallback),
-      1: GradesPage(
-          selectedPage: currentSelectedPage,
-          switchSiteCallback: siteSwitchIndexCallback),
-      2: SettingsPage(
-          selectedPage: currentSelectedPage,
-          switchSiteCallback: siteSwitchIndexCallback)
-    };
+    pages = const [HomePage(), GradesPage(), SettingsPage()];
   }
 
   @override
   Widget build(BuildContext context) {
-    var mqSize = MediaQuery.of(context).size;
+    final mediaQuery = MediaQuery.of(context);
+    final mediaQuerySize = mediaQuery.size;
+    final int mediaQuerySizeWidth = mediaQuerySize.width.toInt();
+    final bool isLandscape = mediaQuerySizeWidth > 1000.toDouble();
+    final page = pages[currentSelectedPage];
     return MaterialApp(
       home: Scaffold(
-        bottomNavigationBar: mqSize.width < 1000.toDouble()
+        bottomNavigationBar: !isLandscape
             ? NavBar(
                 selectedPage: currentSelectedPage,
                 switchSiteCallback: siteSwitchIndexCallback,
               )
             : null,
-        body: Center(
-            child: pages[currentSelectedPage]),
+        body: SafeArea(child: Center(child: () {
+          if (isLandscape) {
+            return Row(children: [
+              NavRail(
+                selectedPage: currentSelectedPage,
+                switchSiteCallback: siteSwitchIndexCallback,
+              ),
+              const VerticalDivider(width: 1, thickness: 1),
+              const Text("Not currently Implemented")
+            ]);
+          } else {
+            return Column(children: [page as Widget]);
+          }
+        }())),
       ),
     );
   }

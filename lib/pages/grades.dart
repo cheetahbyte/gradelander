@@ -1,37 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:gradelander/pages/page.dart';
+import 'package:gradelander/pages/create-grade.dart';
 
-import '../widgets/navigation.dart';
+class GradesPage extends StatelessWidget {
+  const GradesPage({super.key});
 
-class GradesPage extends BasicPage {
-  GradesPage({required super.switchSiteCallback, required super.selectedPage});
-
-  @override
-  State<GradesPage> createState() => GradesPageState();
-}
-
-class GradesPageState extends State<GradesPage> {
   @override
   Widget build(BuildContext context) {
-    final mediaQuery = MediaQuery.of(context);
-    final mediaQuerySize = mediaQuery.size;
-    final int mediaQuerySizeWidth = mediaQuerySize.width.toInt();
-    if (mediaQuerySizeWidth > 1000) {
-      return Row(
-        children: [
-          NavRail(
-            selectedPage: widget.selectedPage,
-            switchSiteCallback: widget.switchSiteCallback,
-          ),
-          const VerticalDivider(
-            width: 1,
-            thickness: 1,
-          ),
-        ],
-      );
-    } else {
-      return const Text("Gradespage");
-    }
+    return IconButton(
+        onPressed: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const CreateGradePage()));
+        },
+        icon: const Icon(Icons.add));
   }
-
 }
