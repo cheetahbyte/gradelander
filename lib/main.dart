@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gradelander/pages/grades.dart';
 import 'package:gradelander/pages/home.dart';
-import "package:gradelander/pages/page.dart";
 import 'package:gradelander/pages/settings.dart';
 import 'package:gradelander/widgets/navigation.dart';
 
@@ -59,7 +58,7 @@ class _MainAppState extends State<MainApp> {
               const Text("Not currently Implemented")
             ]);
           } else {
-            return Column(children: [page as Widget]);
+            return Column(children: [page]);
           }
         }())),
       ),
