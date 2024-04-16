@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 class NavRail extends StatefulWidget {
-  Function(int) switchSiteCallback;
-  int selectedPage;
+  final Function(int) switchSiteCallback;
+  final int selectedPage;
 
-  NavRail(
+  const NavRail(
       {super.key,
       required this.selectedPage,
       required this.switchSiteCallback});
@@ -56,19 +56,18 @@ class _NavRailState extends State<NavRail> {
 }
 
 class NavBar extends StatefulWidget {
-  Function(int) switchSiteCallback;
-  int selectedPage;
-  NavBar(
+  final Function(int) switchSiteCallback;
+  final int selectedPage;
+  const NavBar(
       {super.key,
       required this.selectedPage,
-      required  this.switchSiteCallback});
+      required this.switchSiteCallback});
 
   @override
   State<NavBar> createState() => _NavBarState();
 }
 
 class _NavBarState extends State<NavBar> {
-
   @override
   Widget build(BuildContext context) {
     return NavigationBar(
